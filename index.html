@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Level ground · Mindscape Coaching</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  --bg: #f3f5f7;
+  --surface: #ffffff;
+  --fg: #1b2430;
+  --muted: #5b6777;
+  --line: #d8dee6;
+  --node: #23415f;
+  --edge: #3a5f86;
+  --accent: #c2410c;
+  --accent-soft: #fde4d4;
+  --series-1: #6b7a8c;
+  --series-2: #2f6fb0;
+  --series-3: #c2410c;
+  --fire: #e39a2d;
+  --display: "Newsreader", Georgia, "Times New Roman", serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #10161d; --surface: #18212b; --fg: #e6ebf1; --muted: #9aa7b6; --line: #2a3644;
+    --node: #b9cce2; --edge: #7fa6d1; --accent: #fb8a4c; --accent-soft: #3a2418;
+    --series-1: #8d9aab; --series-2: #6fa8e0; --series-3: #fb8a4c; --fire: #f5b84a; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #10161d; --surface: #18212b; --fg: #e6ebf1; --muted: #9aa7b6; --line: #2a3644;
+  --node: #b9cce2; --edge: #7fa6d1; --accent: #fb8a4c; --accent-soft: #3a2418;
+  --series-1: #8d9aab; --series-2: #6fa8e0; --series-3: #fb8a4c; --fire: #f5b84a; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 15px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 48px;
+}
+.wrap { max-width: 1120px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+header { display: flex; flex-direction: column; gap: 8px; max-width: 70ch; }
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+h1 { font-family: var(--display); font-weight: 600; font-size: clamp(30px, 5vw, 46px); line-height: 1.08; margin: 0; text-wrap: balance; }
+h2 { font-family: var(--display); font-weight: 600; font-size: 24px; line-height: 1.2; margin: 0; text-wrap: balance; }
+.lede { color: var(--muted); margin: 0; font-size: 16px; }
+input[type="range"] { flex: 1 1 260px; min-width: 0; accent-color: var(--accent); height: 28px; }
+.caption { font-size: 13px; color: var(--muted); margin: 0; }
+.essay { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+.essay article { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.essay h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 0; }
+.essay p { margin: 0; max-width: 65ch; }
+.essay ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; }
+.rules { display: flex; flex-direction: column; gap: 16px; }
+.rules-intro { display: flex; flex-direction: column; gap: 8px; max-width: 70ch; }
+.rules-intro p { margin: 0; }
+.rules-note { margin: 0; font-size: 14px; max-width: 70ch; }
+.rules-break { display: flex; flex-direction: column; gap: 8px; max-width: 70ch; padding: 14px 16px; border-left: 3px solid var(--accent); background: var(--surface); border-radius: 0 10px 10px 0; }
+.rules-break h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 0; }
+.rules-break p { margin: 0; font-size: 14px; }
+.game { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
+@media (min-width: 860px) { .game { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); } }
+.game-card { display: flex; flex-direction: column; gap: 12px; padding: 16px 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; min-width: 0; }
+.game-card h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 0; }
+.game-card p { margin: 0; font-size: 14px; }
+.sim-ctrls { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; font-size: 14px; }
+.sim-ctrls label { font-weight: 600; }
+.sim-ctrls select { font: inherit; color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 5px 8px; }
+.sim-ctrls input[type="range"] { flex: 1 1 120px; height: 24px; }
+.sim-ctrls output { font-family: var(--mono); min-width: 4ch; }
+.sim-ctrls .switch { font-weight: 600; }
+.sim-ctrls button { font: inherit; font-size: 13px; padding: 6px 14px; color: var(--bg); background: var(--fg); border: 1px solid var(--fg); border-radius: 6px; cursor: pointer; }
+.ritual-rows { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
+.ritual-rows div { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+.ritual-rows strong { font-family: var(--mono); font-size: 18px; font-weight: 500; font-variant-numeric: tabular-nums; text-align: right; }
+.ritual-rows .hot strong { color: var(--accent); }
+footer { font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 14px; }
+footer a { color: inherit; }
+.level-svg { width: 100%; height: auto; display: block; }
+.level-svg .fulcrum { fill: var(--node); }
+.level-svg .plank { fill: var(--edge); }
+.level-svg .rider { fill: var(--fg); stroke: var(--fg); }
+.level-svg .eye { fill: var(--surface); }
+.level-svg .ground { stroke: var(--muted); }
+.level-svg .coin { fill: var(--accent); }
+.level-svg .house { fill: var(--node); }
+.level-svg .who { fill: var(--muted); font-family: var(--body); font-size: 15px; font-weight: 600; letter-spacing: 1.5px; }
+.level-svg .sight { stroke: var(--muted); stroke-width: 3; stroke-dasharray: 7 7; }
+.level-svg .sight.eq { stroke: var(--accent); stroke-dasharray: none; stroke-width: 2.5; }
+.level-svg .mark circle { fill: var(--surface); stroke: var(--muted); stroke-width: 3; }
+.level-svg .mark text { fill: var(--muted); font-family: var(--body); font-size: 22px; font-weight: 600; }
+.level-svg .mark.eq circle { stroke: var(--accent); }
+.level-svg .mark.eq text { fill: var(--accent); }
+.level-svg .bubble { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; }
+.level-svg .dot { fill: var(--accent); }
+.money-in { width: 10em; font: inherit; font-family: var(--mono); color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 5px 8px; }
+.presets { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 13px; color: var(--muted); }
+.presets button { font: inherit; font-size: 13px; padding: 4px 10px; color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; cursor: pointer; }
+.presets button:hover { border-color: var(--accent); }
+.level-formula { font-family: var(--mono); font-size: 15px; padding: 10px 12px; background: var(--bg); border-radius: 8px; }
+.level-formula b { color: var(--accent); font-weight: 500; }
+.hero { width: 100%; max-width: 1000px; height: auto; border-radius: 12px; border: 1px solid var(--line); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Mindscape Coaching · fees</div>
+    <h1>Level ground: communication is only possible between equals</h1>
+    <p class="lede">A teeter-totter is a lever on a fulcrum. Two people can meet eye to eye on it only when their weights balance. A coaching session works the same way: I sit on one side with my attention, my experience and my time, and the person across from me balances that weight by paying a share of their own means. Only then can either of us speak without looking up or down.</p>
+  </header>
+
+  <section class="rules" aria-labelledby="level-h">
+    <h2 id="level-h" hidden>Fee calculator</h2>
+    <div class="game">
+      <div class="game-card">
+        <h3>Find the fee that levels the plank</h3>
+        <svg class="level-svg" id="level-svg" viewBox="0 0 720 330" role="img" aria-labelledby="level-svg-t">
+          <title id="level-svg-t">A teeter-totter with the coach on the left and the client on the right</title>
+          <g id="level-g" transform="translate(360,215)"></g>
+        </svg>
+        <p id="level-note" aria-live="polite"></p>
+        <div class="sim-ctrls">
+          <label for="nw-r">Net worth</label>
+          <input type="range" id="nw-r" min="0" max="1000" step="1" value="0">
+          <input type="text" id="nw-t" class="money-in" inputmode="decimal" aria-label="Net worth, exact amount (accepts 5m, 1.2b)" spellcheck="false">
+        </div>
+        <div class="presets"><span>Net worth:</span><button type="button" data-nw="0">$0</button><button type="button" data-nw="250e3">$250k</button><button type="button" data-nw="5e6">$5M</button><button type="button" data-nw="25e6">$25M</button><button type="button" data-nw="100e6">$100M</button><button type="button" data-nw="500e6">$500M</button><button type="button" data-nw="1e9">$1B</button><button type="button" data-nw="10e9">$10B</button><button type="button" data-nw="100e9">$100B</button></div>
+        <div class="sim-ctrls">
+          <label for="inc-r">Yearly income</label>
+          <input type="range" id="inc-r" min="0" max="1000" step="1" value="0">
+          <input type="text" id="inc-t" class="money-in" inputmode="decimal" aria-label="Yearly income, exact amount (accepts 5m, 1.2b)" spellcheck="false">
+        </div>
+        <div class="presets"><span>Income:</span><button type="button" data-inc="0">$0</button><button type="button" data-inc="40e3">$40k</button><button type="button" data-inc="250e3">$250k</button><button type="button" data-inc="1e6">$1M</button><button type="button" data-inc="10e6">$10M</button><button type="button" data-inc="100e6">$100M</button></div>
+        <div class="sim-ctrls">
+          <label for="paid-r">They pay</label>
+          <input type="range" id="paid-r" min="-100" max="100" step="1" value="0">
+          <output id="paid-out" for="paid-r">the balancing fee</output>
+        </div>
+        <div class="level-formula">fee = (<b>0.04 × net worth</b> + <b>income</b>) ÷ 800 a session, ÷ 80 a season</div>
+        <div class="ritual-rows">
+          <div><span>4% of net worth: what wealth can yield in a year</span><strong id="lv-draw"></strong></div>
+          <div><span>Plus yearly income</span><strong id="lv-inc"></strong></div>
+          <div><span>Yearly means</span><strong id="lv-means"></strong></div>
+          <div class="hot"><span>Balancing fee, one session (÷ 800, or 0.125% of means)</span><strong id="lv-session"></strong></div>
+          <div class="hot"><span>Balancing fee, a season (÷ 80, or 1.25% of means)</span><strong id="lv-season"></strong></div>
+          <div><span>Share of means that comes from wealth</span><strong id="lv-share"></strong></div>
+          <div><span id="lv-paid-l">What they pay for a session</span><strong id="lv-paid"></strong></div>
+        </div>
+        <p class="caption">Drag the sliders for a quick figure, or type an exact amount in the box beside each: 5m, 120m, 1.2b and 3,400,000 all work. The sliders run on a logarithmic scale from $10,000 to $100 billion of net worth and to $10 billion of income, so each step along them multiplies rather than adds.</p>
+      </div>
+      <div class="essay" style="grid-template-columns: minmax(0, 1fr); align-content: start;">
+        <article>
+          <h3>A share, not a price</h3>
+          <p>A flat price weighs differently on every person who pays it. The same $100 can keep someone out of coaching entirely and register as nothing to someone else. The formula instead takes the same share of everyone’s yearly means, so the weight each client puts on the plank feels the same to them: one eight-hundredth of a year for a session, one eightieth for a season.</p>
+          <p>Yearly means count income plus 4% of net worth. Four percent follows the planner William Bengen’s “safe withdrawal rate” (1994): roughly what savings can give up each year without shrinking over a lifetime. Counting it treats wealth as a second income, so a client living on assets rather than wages still sits at their true weight.</p>
+          <p>Finland sets traffic fines the same way. Its day-fines scale with income, and in 2002 a Nokia executive, Anssi Vanjoki, was fined €116,000 for riding a motorcycle 75 km/h in a 50 zone. The aim was not a bigger penalty but an equal one, felt the same by whoever paid it.</p>
+        </article>
+        <article>
+          <h3>Both ends of the plank</h3>
+          <p>The plank tips in two directions, and either one ends the conversation. Charge too much, and a client sits low, looking up, grateful or resentful, but not free to speak plainly. Charge too little, and they sit high, receiving a favour they cannot return. The anthropologist Marcel Mauss showed in <i>The Gift</i> (1925) that an unreturned gift creates a debt and a rank: the giver rises and the receiver falls.</p>
+          <p>The high end matters just as much as the low. A client with $100 million or $1 billion who pays a flat fee pays almost nothing for what they receive, and both of us feel the tilt: they become a patron to be pleased or a customer to be served, and a coach who must please cannot tell the truth. A fee scaled to their means lets them sit level and be met as a person rather than a purse.</p>
+        </article>
+        <article>
+          <h3>Who the fee funds</h3>
+          <p>The fees at the high end fund this work for the whole community. When a billionaire’s season comes to $500,000, that sum does not raise them above the room; it holds up the rest of the plank. It makes room for clients who arrive with little, who still pay their own share of their own means and so sit level too.</p>
+          <p>Paid this way, the money carries no favour and buys no rank. It lets wealthy clients give fully without becoming owners of the coach, or of the people their fees reach.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <img class="hero" src="teeter-totter-equals.svg" alt="A summary graphic: two tilted teeter-totters, too light (a gift and a debt) and too heavy (a purchase and a servant), beside a level one where coach and client meet eye to eye, with the fee formula and examples.">
+
+  <footer>
+    <p>Sources: William P. Bengen, “Determining Withdrawal Rates Using Historical Data,” <i>Journal of Financial Planning</i>, 1994. Marcel Mauss, <i>The Gift</i> (<i>Essai sur le don</i>), 1925.</p>
+  </footer>
+</div>
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  // ---------- level ground: the fee as counterweight ----------
+  const NS = "http://www.w3.org/2000/svg";
+  const money = (x) => { const c = Math.round(x * 100) / 100, whole = x >= 1e5 || c % 1 === 0; return "$" + (whole ? Math.round(x) : c).toLocaleString("en-US", { minimumFractionDigits: whole ? 0 : 2, maximumFractionDigits: whole ? 0 : 2 }); };
+  const lvRange = { nw: [4, 11], inc: [4, 10] };
+  const lv = { nw: 5e6, inc: 250e3 };
+  const toPos = (k, x) => x <= 0 ? 0 : Math.max(1, Math.min(1000, Math.round((Math.log10(x) - lvRange[k][0]) / (lvRange[k][1] - lvRange[k][0]) * 1000)));
+  const fromPos = (k, v) => { if (+v === 0) return 0; const x = Math.pow(10, lvRange[k][0] + (lvRange[k][1] - lvRange[k][0]) * v / 1000); const m = Math.pow(10, Math.floor(Math.log10(x)) - 1); return Math.round(x / m) * m; };
+  const parseMoney = (str) => {
+    const t = String(str).trim().toLowerCase().replace(/[$,\s]/g, "");
+    const m = t.match(/^(\d*\.?\d+)(k|m|mm|b|bn|t)?$/); if (!m) return NaN;
+    return parseFloat(m[1]) * ({ k: 1e3, m: 1e6, mm: 1e6, b: 1e9, bn: 1e9, t: 1e12 }[m[2]] || 1);
+  };
+  function lvSvg(th) {
+    const g = $("level-g"), r = th * Math.PI / 180, L = 315, T = 16, FH = 92;
+    const pt = (d, y) => [d * Math.cos(r) - y * Math.sin(r), d * Math.sin(r) + y * Math.cos(r)];
+    let h = '<line class="ground" x1="-150" y1="' + FH + '" x2="150" y2="' + FH + '" stroke-width="2" stroke-linecap="round"/>' +
+      '<path class="fulcrum" d="M0,0 L-46,' + FH + ' L46,' + FH + ' Z"/>' +
+      '<g transform="rotate(' + th.toFixed(2) + ')"><rect class="plank" x="' + (-L) + '" y="' + (-T) + '" width="' + (2 * L) + '" height="' + T + '" rx="5"/>' +
+      '<rect class="plank" x="-190" y="-46" width="8" height="32" rx="3"/><rect class="plank" x="182" y="-46" width="8" height="32" rx="3"/>' +
+      '<rect class="house" x="' + (-L + 6) + '" y="-48" width="44" height="32" rx="4"/>' +
+      '<rect class="coin" x="' + (L - 50) + '" y="-26" width="44" height="10" rx="5"/><rect class="coin" x="' + (L - 48) + '" y="-37" width="44" height="10" rx="5"/><rect class="coin" x="' + (L - 51) + '" y="-48" width="44" height="10" rx="5"/></g>';
+    const eyes = {};
+    for (const [side, dir] of [[-1, 1], [1, -1]]) {
+      const [x, y] = pt(side * 228, -T), sh = [x + dir * 6, y - 72], hd = [x + dir * 9, y - 104], hn = pt(side * 186, -46);
+      h += '<path class="rider" stroke-width="10" stroke-linecap="round" d="M' + sh[0] + ',' + (sh[1] + 6) + ' L' + hn[0] + ',' + hn[1] + '"/>';
+      h += '<path class="rider" stroke="none" d="M' + (x - dir * 20) + ',' + y + ' Q' + (x - dir * 22) + ',' + (y - 60) + ' ' + (sh[0] - dir * 10) + ',' + sh[1] + ' L' + (sh[0] + dir * 14) + ',' + (sh[1] + 4) + ' Q' + (x + dir * 22) + ',' + (y - 40) + ' ' + (x + dir * 18) + ',' + y + ' Z"/>';
+      h += '<path class="rider" fill="none" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" d="M' + x + ',' + (y - 6) + ' L' + (x + dir * 44) + ',' + (y - 2) + ' L' + (x + dir * 48) + ',' + (y + 46) + '"/>';
+      h += '<circle class="rider" stroke="none" cx="' + hd[0] + '" cy="' + hd[1] + '" r="20"/>';
+      eyes[side] = [hd[0] + dir * 10, hd[1] - 3];
+      h += '<circle class="eye" cx="' + eyes[side][0] + '" cy="' + eyes[side][1] + '" r="2.6"/>';
+      h += '<text class="who" text-anchor="middle" x="' + (hd[0] - side * 6) + '" y="' + (hd[1] - 34) + '">' + (side < 0 ? "ME" : "CLIENT") + '</text>';
+    }
+    const [x1, y1] = eyes[-1], [x2, y2] = eyes[1], mx = (x1 + x2) / 2, my = (y1 + y2) / 2, eq = Math.abs(th) < 0.5;
+    h += '<line class="sight' + (eq ? " eq" : "") + '" x1="' + (x1 + 16) + '" y1="' + y1 + '" x2="' + (x2 - 16) + '" y2="' + y2 + '"/>';
+    if (eq) for (const fl of [1, -1]) {
+      const cx = mx - fl * 62, cy = my - 46, tx = cx - fl * 30;
+      h += '<path class="bubble" d="M' + (cx - 48) + ',' + (cy - 20) + ' h96 a10,10 0 0 1 10,10 v20 a10,10 0 0 1 -10,10 H' + (tx + 8) + ' l' + (-fl * 14) + ',16 l' + (fl * 2) + ',-16 H' + (cx - 48) + ' a10,10 0 0 1 -10,-10 v-20 a10,10 0 0 1 10,-10 z"/>';
+      for (const k of [-1, 0, 1]) h += '<circle class="dot" cx="' + (cx + k * 16) + '" cy="' + cy + '" r="3.5"/>';
+    }
+    h += '<g class="mark' + (eq ? " eq" : "") + '"><circle cx="' + mx + '" cy="' + my + '" r="15"/><text text-anchor="middle" x="' + mx + '" y="' + (my + 7.5) + '">' + (eq ? "=" : "≠") + '</text></g>';
+    g.innerHTML = h;
+  }
+  function levelText(src) {
+    for (const k of ["nw", "inc"]) {
+      if (src !== k + "-r") $(k + "-r").value = toPos(k, lv[k]);
+      if (src !== k + "-t") $(k + "-t").value = money(lv[k]);
+    }
+    const draw = 0.04 * lv.nw, means = draw + lv.inc, sess = means / 800, seas = means / 80;
+    $("lv-draw").textContent = money(draw);
+    $("lv-inc").textContent = money(lv.inc);
+    $("lv-means").textContent = money(means);
+    $("lv-session").textContent = money(sess);
+    $("lv-season").textContent = money(seas);
+    $("lv-share").textContent = means > 0 ? Math.round(draw / means * 100) + "%" : "–";
+    const pv = +$("paid-r").value, ratio = Math.pow(10, pv / 100), paid = sess * ratio;
+    $("paid-out").textContent = pv === 0 ? "the balancing fee" : (ratio < 1 ? (Math.round(ratio * 100) + "% of the balance") : (ratio.toFixed(ratio < 2 ? 2 : 1) + "× the balance"));
+    $("lv-paid").textContent = money(paid);
+    const th = 14 * Math.tanh(1.6 * pv / 100);
+    lvSvg(pv === 0 ? 0 : th);
+    let note;
+    if (means <= 0) note = "With no income and no net worth, the balancing fee comes to nothing. The plank stays level; the client brings themselves.";
+    else if (pv === 0) note = "Level. A session costs " + money(sess) + ", one eight-hundredth of a year’s means, and a season of ten costs " + money(seas) + ". Neither of us looks up or down, so both of us can speak plainly.";
+    else if (ratio < 1) note = "Too light. Paying " + money(paid) + ", " + money(sess - paid) + " short of the balance, lifts the client into the air: a gift, and a debt. They receive a favour they cannot return.";
+    else note = "Too heavy. Paying " + money(paid) + ", " + money(paid - sess) + " over the balance, sinks the client and lifts me: a purchase, and a servant. The client has bought something, and buyers are not equals.";
+    $("level-note").textContent = note;
+  }
+  for (const k of ["nw", "inc"]) {
+    $(k + "-r").addEventListener("input", (e) => { lv[k] = fromPos(k, e.target.value); levelText(k + "-r"); });
+    $(k + "-t").addEventListener("input", (e) => { const x = parseMoney(e.target.value); if (x >= 0) { lv[k] = x; levelText(k + "-t"); } });
+    $(k + "-t").addEventListener("change", () => levelText());
+  }
+  $("paid-r").addEventListener("input", () => levelText());
+  document.querySelectorAll(".presets button").forEach((b) => b.addEventListener("click", () => {
+    if (b.dataset.nw !== undefined) lv.nw = +b.dataset.nw; else lv.inc = +b.dataset.inc;
+    levelText();
+  }));
+
+  levelText();
+})();
+</script>
+</body>
+</html>
